@@ -1,0 +1,9 @@
+.request-card { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 12px; }
+.request-card .content { display: grid; gap: 6px; cursor: pointer; }
+.request-card .title-row { display: flex; align-items: center; justify-content: space-between; }
+.request-card .title { font-weight: 600; }
+.request-card .status { font-size: 14px; font-weight: 600; text-transform: capitalize; }
+.request-card .meta { color: var(--color-muted); font-size: 13px; }
+.request-card .details { font-size: 14px; }
+.request-card .actions { display: flex; align-items: center; }
+

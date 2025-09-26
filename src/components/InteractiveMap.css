@@ -1,0 +1,23 @@
+.interactive-map {
+  height: 420px;
+  overflow: hidden;
+}
+
+/* Leaflet divIcon styling */
+.status-marker { position: relative; }
+.status-marker .dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+.status-marker.urgent .dot { background: var(--status-urgent); }
+.status-marker.moderate .dot { background: var(--status-moderate); }
+.status-marker.served .dot, .status-marker.assisted .dot { background: var(--status-served); }
+.status-marker.unknown .dot { background: var(--color-muted); }
+
+.popup { min-width: 200px; display: grid; gap: 6px; }
+.popup .title { font-weight: 600; }
+.popup .row { font-size: 14px; }
+

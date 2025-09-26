@@ -1,0 +1,56 @@
+/*
+  Global styles for IRC – Indian Relief Connect
+  - CSS Reset (minimal)
+  - CSS Variables for theme colors
+  - Base typography
+*/
+
+/* Minimal reset */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+html, body { margin: 0; padding: 0; }
+
+/* Theme variables */
+:root {
+  --color-brand: #0a3d62; /* Deep blue */
+  --color-brand-accent: #3c6382;
+  --color-bg: #f7f9fc;
+  --color-text: #1f2d3d;
+  --color-muted: #7f8c8d;
+  --color-border: #e1e5ea;
+  --color-success: #2ecc71;
+  --color-warning: #f39c12;
+  --color-danger: #e74c3c;
+
+  /* Risk levels */
+  --risk-high: #ff4d4f;   /* red */
+  --risk-medium: #ffd666; /* yellow */
+
+  /* Request status */
+  --status-urgent: #e74c3c;   /* red */
+  --status-moderate: #f39c12; /* orange */
+  --status-served: #2ecc71;   /* green */
+}
+
+body { 
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Arial, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* Utilities */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+.card { background: #fff; border: 1px solid var(--color-border); border-radius: 8px; }
+.shadow-sm { box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.btn { cursor: pointer; border: none; border-radius: 6px; padding: 10px 14px; }
+.btn-primary { background: var(--color-brand); color: #fff; }
+.btn-primary:hover { background: var(--color-brand-accent); }
+.btn-muted { background: #eef2f7; color: var(--color-text); }
+.btn-danger { background: var(--color-danger); color: #fff; }
+.btn-success { background: var(--color-success); color: #fff; }
+
+/* Fixed navbar spacing helper: main has padding-top in App.js */
+
