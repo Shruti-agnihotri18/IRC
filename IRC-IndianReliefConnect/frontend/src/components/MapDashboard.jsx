@@ -27,14 +27,24 @@ export default function MapDashboard({ onLocationPick, showRequests = true, show
   const [loading, setLoading] = useState(false);
   const mapRef = useRef(null);
 
+  const seedFloods = () => ([
+    { id: 'dl', district: 'Delhi', lat: 28.6139, lng: 77.2090, rainfall: 120, riverLevel: 5.2, risk: 'medium' },
+    { id: 'mum', district: 'Mumbai', lat: 19.0760, lng: 72.8777, rainfall: 200, riverLevel: 6.1, risk: 'high' },
+    { id: 'kol', district: 'Kolkata', lat: 22.5726, lng: 88.3639, rainfall: 80, riverLevel: 4.4, risk: 'low' },
+    { id: 'chn', district: 'Chennai', lat: 13.0827, lng: 80.2707, rainfall: 150, riverLevel: 5.8, risk: 'medium' },
+    { id: 'gwh', district: 'Guwahati', lat: 26.1445, lng: 91.7362, rainfall: 170, riverLevel: 6.5, risk: 'high' },
+  ]);
+
   useEffect(() => {
     let mounted = true;
     (async () => {
       try {
         const res = await getFloods();
-        if (mounted) setFloods(res.data || []);
+        const data = Array.isArray(res.data) ? res.data : [];
+        if (mounted) setFloods(data.length ? data : seedFloods());
       } catch (e) {
-        console.error('Failed to fetch floods', e);
+        console.warn('Failed to fetch floods from backend. Using seeded data.', e);
+        if (mounted) setFloods(seedFloods());
       }
     })();
     return () => { mounted = false; };
@@ -47,7 +57,20 @@ export default function MapDashboard({ onLocationPick, showRequests = true, show
       const res = await getFloods();
       setFloods(res.data || []);
     } catch (e) {
-      console.error('Simulation failed', e);
+      console.warn('Backend simulation failed. Applying local simulation.', e);
+      // Local simulation: randomly bump rainfall/river and tweak risk
+      setFloods((prev) => prev.map((p) => {
+        const deltaRain = Math.round((Math.random() - 0.4) * 20);
+        const deltaRiver = (Math.random() - 0.4) * 0.5;
+        const levels = ['low','medium','high'];
+        const idx = Math.max(0, Math.min(2, levels.indexOf(p.risk) + (Math.random() > 0.6 ? 1 : Math.random() < 0.3 ? -1 : 0)));
+        return {
+          ...p,
+          rainfall: Math.max(0, (p.rainfall || 0) + deltaRain),
+          riverLevel: Math.max(0, (p.riverLevel || 0) + deltaRiver),
+          risk: levels[idx],
+        };
+      }));
     } finally {
       setLoading(false);
     }
