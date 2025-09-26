@@ -2,6 +2,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stars } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Suspense } from 'react';
 
 function Globe() {
   return (
@@ -16,13 +17,15 @@ export default function LandingPage() {
   return (
     <div className="relative min-h-[calc(100vh-56px)]">
       <div className="absolute inset-0 -z-10">
-        <Canvas camera={{ position: [0, 0, 5] }}>
-          <ambientLight intensity={0.6} />
-          <directionalLight position={[5, 5, 5]} intensity={1} />
-          <Stars radius={50} depth={20} count={3000} factor={4} saturation={0} fade />
-          <Globe />
-          <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.6} />
-        </Canvas>
+        <Suspense fallback={<div className="w-full h-full flex items-center justify-center">Loading scene…</div>}>
+          <Canvas camera={{ position: [0, 0, 5] }}>
+            <ambientLight intensity={0.6} />
+            <directionalLight position={[5, 5, 5]} intensity={1} />
+            <Stars radius={50} depth={20} count={3000} factor={4} saturation={0} fade />
+            <Globe />
+            <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.6} />
+          </Canvas>
+        </Suspense>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 py-20 grid lg:grid-cols-2 gap-10 items-center">
