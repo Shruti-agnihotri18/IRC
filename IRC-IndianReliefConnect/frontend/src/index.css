@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+}
+
+html, body, #root { height: 100%; }
+
+.glass {
+  background: rgba(10, 42, 78, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.card {
+  @apply bg-white/5 border border-white/10 rounded-xl shadow-glow;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #40B9D6, #F77F00);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Leaflet container height fix in flex layouts */
+.map-container { height: 100%; }
